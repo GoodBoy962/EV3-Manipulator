@@ -1,14 +1,17 @@
 package entity;
 
-public class RectangularJoint extends Joint{
+import lejos.robotics.RegulatedMotor;
 
-	public RectangularJoint(float a, float alpha, float d, float theta) {
+public class RectangularJoint extends Joint{
+	private RegulatedMotor motor;
+
+	public RectangularJoint(float a, float alpha, float d, float theta, RegulatedMotor motor) {
 		super(a, alpha, d, theta);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public void move() {
+	public void move(Point p) {
 		// TODO Auto-generated method stub
 		
 	}

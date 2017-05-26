@@ -1,5 +1,26 @@
 package engine;
 
-public class RobotEngine {
+import utils.MatrixHelper;
+import entity.Joint;
+import entity.Robot;
 
+public class RobotEngine {
+	private Robot robot;
+	private MatrixHelper helper;
+	public RobotEngine(Robot r){
+		robot = r;
+		helper = new MatrixHelper();
+	}
+	public float[][] fkine(){
+		float [][] transformMatrix = new float[4][4];
+		for (int i = 0; i < robot.getAllJoints().size()-1; i++){
+			transformMatrix = helper.multiplyMatrix(robot.getJoint(i).getTransformMatrix(),
+					robot.getJoint(i+1).getTransformMatrix());
+		}
+		return transformMatrix;
+	}
+	public void ikine(){
+		
+	}
+	
 }
