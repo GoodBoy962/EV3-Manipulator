@@ -1,5 +1,7 @@
 package utils;
 
+import entity.Point;
+
 public class MatrixHelper {
 	public float[][] multiplyMatrix(float[][] firstarray, float[][] secondarray){
 		float [][] result = new float[firstarray.length][secondarray[0].length];
@@ -11,5 +13,8 @@ public class MatrixHelper {
 		    }
 		}
 		return result;
+	}
+	public Point getPoint(float[][] matrix){
+		return new Point(matrix[3][0],matrix[3][1], matrix[3][2]); 
 	}
 }

@@ -13,7 +13,7 @@ public abstract class Joint {
 		this.theta = theta;
 		executeTransformMatrix();
 	}
-	public abstract void move(Point p);
+	
 	public float[][] getTransformMatrix(){
 		return transMatrix;
 	}

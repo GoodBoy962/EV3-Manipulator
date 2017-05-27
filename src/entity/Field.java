@@ -1,8 +1,11 @@
 package entity;
 
 public class Field {
-	private int[][] points;
-	public Field(int [][] points){
+	private Point[][] points;
+	public Field(Point [][] points){
 		this.points = points;
+	}
+	public Point[][] getPoints(){
+		return points;
 	}
 }
