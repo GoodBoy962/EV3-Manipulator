@@ -1,5 +1,7 @@
 package engine;
 
+import lejos.hardware.Button;
+import lejos.hardware.Key;
 import lejos.utility.Delay;
 import utils.MatrixHelper;
 import entity.Joint;
@@ -12,6 +14,7 @@ public class RobotEngine {
 	public RobotEngine(Robot r){
 		robot = r;
 		helper = new MatrixHelper();
+		setPANICButton();
 	}
 	public float[][] fkine(){
 		float [][] transformMatrix = new float[4][4];
@@ -31,5 +34,16 @@ public class RobotEngine {
 		Delay.msDelay(3000);
 		robot.getRotational1().move(sigma);
 		Delay.msDelay(3000);
+	}
+	private void setPANICButton(){
+		Key escape = Button.ESCAPE;
+		escape.addKeyListener(new MyClickListener(){
+
+			@Override
+			public void keyPressed(Key k) {
+				robot.stop();
+			}
+			
+		});
 	}
 }

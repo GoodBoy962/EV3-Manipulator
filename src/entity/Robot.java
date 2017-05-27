@@ -3,19 +3,23 @@ package entity;
 import java.util.List;
 
 import lejos.hardware.Sound;
+import engine.RobotDisplay;
 import engine.RobotEngine;
+import engine.StartTaskBListener;
 import enums.MyColor;
 
-public class Robot {
+public class Robot implements StartTaskBListener{
 	private List<Joint> joints;
 	private SuperColorSensor sensor;
 	private final float LINK1 = 16;
 	private RobotEngine engine;
 	private int[][] colorMatrix;
+	private RobotDisplay display;
 	public Robot(List<Joint> links, SuperColorSensor sensor){
 		this.joints = links;
 		this.sensor = sensor;
 		this.engine = new RobotEngine(this);
+		this.display = new RobotDisplay();
 	}
 	public Joint getJoint(int position){
 		return joints.get(position);
@@ -70,5 +74,13 @@ public class Robot {
 	}
 	public int readColor(){
 		return sensor.getMyColorId();
+	}
+	public void executeTaskB(Field f){
+		display.bindEnter(this);
+	}
+	@Override
+	public void startOnEnterClick(int colorId) {
+		// HERE WILL BE TASK B
+		
 	}
 }
