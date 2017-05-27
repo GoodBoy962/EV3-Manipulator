@@ -2,13 +2,16 @@ package entity;
 
 import java.util.List;
 
+import lejos.hardware.Sound;
 import engine.RobotEngine;
+import enums.MyColor;
 
 public class Robot {
 	private List<Joint> joints;
 	private SuperColorSensor sensor;
-	private final float LINK1 = 10;
+	private final float LINK1 = 16;
 	private RobotEngine engine;
+	private int[][] colorMatrix;
 	public Robot(List<Joint> links, SuperColorSensor sensor){
 		this.joints = links;
 		this.sensor = sensor;
@@ -47,10 +50,12 @@ public class Robot {
 		return LINK1;
 	}
 	public void startExecution(Field f){
+		colorMatrix = new int[f.getPoints().length][f.getPoints()[0].length];
 		Point[][] points = f.getPoints();
 		for (int i = 0; i < points.length; i++){
 			for(int j = 0; j < points[i].length; j++){
 				move(points[i][j]);
+				colorMatrix[i][j] = readColor();
 			}
 		}
 	}
@@ -58,5 +63,12 @@ public class Robot {
 		for(Joint j: joints){
 			j.stop();
 		}
+		beep();
+	}
+	public void beep(){
+		Sound.beep();
+	}
+	public int readColor(){
+		return sensor.getMyColorId();
 	}
 }

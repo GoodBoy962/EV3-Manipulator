@@ -1,5 +1,6 @@
 package engine;
 
+import lejos.utility.Delay;
 import utils.MatrixHelper;
 import entity.Joint;
 import entity.Point;
@@ -23,9 +24,12 @@ public class RobotEngine {
 	public void ikine(Point p){
 		float THETA = robot.getRotational1().getAngle();
 		float[][] transMatrix = fkine();
-		float sigma = (float) (Math.acos(p.getX()/robot.getLink1())-THETA);
-		float d = (float) (p.getY()-robot.getLink1()*Math.sin(THETA+sigma));
+		float someAngle = (float) (Math.acos((float)(p.getX()/robot.getLink1())));
+		float sigma = someAngle-THETA;
+		float d = (float) (p.getY()-robot.getLink1()*Math.sin(someAngle));
 		robot.getPrismatic().move(d);
+		Delay.msDelay(3000);
 		robot.getRotational1().move(sigma);
+		Delay.msDelay(3000);
 	}
 }
