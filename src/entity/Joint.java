@@ -36,5 +36,6 @@ public abstract class Joint {
 		transMatrix[3][3] = 1;
 		
 	}
+	public abstract void stop();
 
 }

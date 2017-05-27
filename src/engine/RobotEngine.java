@@ -20,10 +20,10 @@ public class RobotEngine {
 		}
 		return transformMatrix;
 	}
-	private final float THETA = 0.1f;
 	public void ikine(Point p){
+		float THETA = robot.getRotational1().getAngle();
 		float[][] transMatrix = fkine();
-		float sigma = (float) Math.acos(p.getX()/robot.getLink1()-THETA);
+		float sigma = (float) (Math.acos(p.getX()/robot.getLink1())-THETA);
 		float d = (float) (p.getY()-robot.getLink1()*Math.sin(THETA+sigma));
 		robot.getPrismatic().move(d);
 		robot.getRotational1().move(sigma);

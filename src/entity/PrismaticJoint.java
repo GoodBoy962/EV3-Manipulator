@@ -20,4 +20,10 @@ public class PrismaticJoint extends Joint{
 		return currentDistance;
 	}
 
+	@Override
+	public void stop() {
+		motor.close();
+		
+	}
+
 }

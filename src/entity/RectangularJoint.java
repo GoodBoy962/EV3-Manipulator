@@ -16,4 +16,12 @@ public class RectangularJoint extends Joint{
 		currentAngle+=angle;
 		motor.rotate((int)angle);
 	}
+	public float getAngle(){
+		return currentAngle;
+	}
+	@Override
+	public void stop() {
+		motor.stop();
+		
+	}
 }

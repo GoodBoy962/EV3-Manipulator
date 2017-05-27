@@ -17,4 +17,7 @@ public class MatrixHelper {
 	public Point getPoint(float[][] matrix){
 		return new Point(matrix[3][0],matrix[3][1], matrix[3][2]); 
 	}
+	public float getRotationAngle(float[][] transMatrix){
+		return 0;
+	}
 }
