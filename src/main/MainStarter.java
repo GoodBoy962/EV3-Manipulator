@@ -21,7 +21,7 @@ public class MainStarter {
 		List<Joint> joints = new ArrayList();
 		joints.add(new PrismaticJoint(0,(float)Math.PI/2,0,0,new EV3LargeRegulatedMotor(MotorPort.A)));
 		joints.add(new RectangularJoint(0,-(float)Math.PI/2,0,0,new EV3LargeRegulatedMotor(MotorPort.D)));
-		joints.add(new RectangularJoint(10,0,0,0,new EV3LargeRegulatedMotor(MotorPort.C)));
+		joints.add(new RectangularJoint(10,0,0,0,new EV3LargeRegulatedMotor(MotorPort.B)));
 		SuperColorSensor sensor = new SuperColorSensor(SensorPort.S1);
 		FieldBuilder builder = new FieldBuilder();
 		Robot robot = new Robot(joints,sensor);

@@ -15,6 +15,7 @@ public class Robot implements StartTaskBListener{
 	private RobotEngine engine;
 	private int[][] colorMatrix;
 	private RobotDisplay display;
+	private Field field;
 	public Robot(List<Joint> links, SuperColorSensor sensor){
 		this.joints = links;
 		this.sensor = sensor;
@@ -57,7 +58,7 @@ public class Robot implements StartTaskBListener{
 		colorMatrix = new int[f.getPoints().length][f.getPoints()[0].length];
 		Point[][] points = f.getPoints();
 		for (int i = 0; i < points.length; i++){
-			for(int j = 0; j < points[i].length; j++){
+			for(int j = points[i].length-1; j >= 0; j--){
 				move(points[i][j]);
 				colorMatrix[i][j] = readColor();
 			}
@@ -76,11 +77,19 @@ public class Robot implements StartTaskBListener{
 		return sensor.getMyColorId();
 	}
 	public void executeTaskB(Field f){
+		this.field = f;
 		display.bindEnter(this);
 	}
 	@Override
 	public void startOnEnterClick(int colorId) {
-		// HERE WILL BE TASK B
-		
+		Point[][] points = field.getPoints();
+		for (int i = 0; i < points.length; i++){
+			for(int j = 0; j < points[i].length; j++){
+				move(points[i][j]);
+				if (colorId==readColor()){
+					
+				}
+			}
+		}
 	}
 }
