@@ -9,30 +9,30 @@ import engine.StartTaskBListener;
 import enums.MyColor;
 
 public class Robot implements StartTaskBListener{
+	
 	private List<Joint> joints;
-	private SuperColorSensor sensor;
+	private ColorSensor sensor;
 	private final float LINK1 = 16;
 	private RobotEngine engine;
 	private int[][] colorMatrix;
 	private RobotDisplay display;
 	private Field field;
-	public Robot(List<Joint> links, SuperColorSensor sensor){
+	
+	public Robot(List<Joint> links, ColorSensor sensor){
 		this.joints = links;
 		this.sensor = sensor;
 		this.engine = new RobotEngine(this);
 		this.display = new RobotDisplay();
 	}
+	
 	public Joint getJoint(int position){
 		return joints.get(position);
 	}
+	
 	public RectangularJoint getRotational1(){
-		for(Joint j: joints){
-			if (j instanceof RectangularJoint){
-				return  (RectangularJoint) j;
-			}
-		}
-		return null;
+		return (RectangularJoint) joints.get(1);
 	}
+	
 	public void move(Point point){
 		engine.ikine(point);
 	}
@@ -40,20 +40,19 @@ public class Robot implements StartTaskBListener{
 		((RectangularJoint) getJoint(2)).move(180);
 		((RectangularJoint) getJoint(2)).move(-180);
 	}
+	
 	public List<Joint> getAllJoints(){
 		return joints;
 	}
+	
 	public PrismaticJoint getPrismatic(){
-		for(Joint j: joints){
-			if (j instanceof PrismaticJoint){
-				return (PrismaticJoint) j;
-			}
-		}
-		return null;
+		return (PrismaticJoint) joints.get(0);
 	}
+	
 	public float getLink1(){
 		return LINK1;
 	}
+	
 	public void startExecution(Field f){
 		colorMatrix = new int[f.getPoints().length][f.getPoints()[0].length];
 		Point[][] points = f.getPoints();
@@ -64,23 +63,28 @@ public class Robot implements StartTaskBListener{
 			}
 		}
 	}
+	
 	public void stop(){
 		for(Joint j: joints){
 			j.stop();
 		}
 		beep();
 	}
+	
 	public void beep(){
 		Sound.beep();
 	}
+	
 	public int readColor(){
 		return sensor.getMyColorId();
 	}
+	
 	public void executeTaskB(Field f){
 		this.field = f;
 		display.bindEnter(this);
 	}
 	@Override
+	
 	public void startOnEnterClick(int colorId) {
 		Point[][] points = field.getPoints();
 		for (int i = 0; i < points.length; i++){

@@ -4,12 +4,12 @@ import enums.MyColor;
 import lejos.hardware.port.Port;
 import lejos.hardware.sensor.EV3ColorSensor;
 
-public class SuperColorSensor extends EV3ColorSensor{
+public class ColorSensor extends EV3ColorSensor{
 
-	public SuperColorSensor(Port port) {
+	public ColorSensor(Port port) {
 		super(port);
-		// TODO Auto-generated constructor stub
 	}
+	
 	public MyColor getColor(){
 		int colorId = this.getColorID();
 		switch (colorId){
@@ -23,17 +23,18 @@ public class SuperColorSensor extends EV3ColorSensor{
 		}																								
 		return MyColor.NOCOLOR;																			
 	}
+	
 	public int getMyColorId(){
 		int colorId = this.getColorID();
 		switch (colorId){
-			case(0): return 5; 
-			case(1): return 3; 
-			case(2): return 2; 
-			case(3): return 4;
-			case(6): return 6;
-			case(7): return 1;
-			case(13): return 7;																
+			case(0): return 5;  //RED
+			case(1): return 3;  //GREEN
+			case(2): return 2;  //BLUE
+			case(3): return 4;  //YELLOW
+			case(6): return 6; //White
+			case(7): return 1;   //BLACK
+			case(13): return 7;			//BROWN													
 		}																								
-		return 0;																			
+		return 0;		        //UNRECOGNIZED																	
 	}
 }

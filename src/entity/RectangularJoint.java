@@ -1,34 +1,39 @@
 package entity;
 
+import lejos.hardware.motor.EV3LargeRegulatedMotor;
+import lejos.hardware.port.Port;
 import lejos.robotics.RegulatedMotor;
 
 public class RectangularJoint extends Joint{
+	
 	private RegulatedMotor motor;
-	private float currentAngle = 0;
+	private double currentAngle = 0;
 	private final int MIN_LIMIT_ANGLE = 100;
 	private final int MAX_LIMIT_ANGLE = 100;
 
-	public RectangularJoint(float a, float alpha, float d, float theta, RegulatedMotor motor) {
+	public RectangularJoint(double a, double alpha, double d, double theta, Port port) {
 		super(a, alpha, d, theta);
-		this.motor = motor;
-		motor.setSpeed(50);
-		// TODO Auto-generated constructor stub
+		this.motor = new EV3LargeRegulatedMotor(port);
+		motor.setSpeed(MOTOR_SPEED);
 	}
-	public void move(float angle){
-		currentAngle+=angle;
-		if (currentAngle>MAX_LIMIT_ANGLE){
-			angle = -(currentAngle-MAX_LIMIT_ANGLE-angle); 
-			currentAngle = MAX_LIMIT_ANGLE;
-		}
-		else if(currentAngle<MIN_LIMIT_ANGLE){
-			angle = -(currentAngle-MIN_LIMIT_ANGLE-angle); 
-			currentAngle = MAX_LIMIT_ANGLE;
-		}
+
+	public void move(double angle){
+//		currentAngle += angle;
+//		if (currentAngle > MAX_LIMIT_ANGLE){
+//			angle =- (currentAngle-MAX_LIMIT_ANGLE - angle); 
+//			currentAngle = MAX_LIMIT_ANGLE;
+//		}
+//		else if(currentAngle < MIN_LIMIT_ANGLE){
+//			angle =- (currentAngle-MIN_LIMIT_ANGLE - angle); 
+//			currentAngle = MAX_LIMIT_ANGLE;
+//		}
 		motor.rotate((int)angle);
 	}
-	public float getAngle(){
+	
+	public double getAngle(){
 		return currentAngle;
 	}
+	
 	@Override
 	public void stop() {
 		motor.stop();

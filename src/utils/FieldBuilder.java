@@ -5,6 +5,7 @@ import entity.Point;
 import enums.FieldType;
 
 public class FieldBuilder {
+	
 	private final float Y_SIZE = 27.4f;
 	private final float X_SIZE = 16;//21.5f;
 	public Field buildField(FieldType type){
@@ -16,15 +17,19 @@ public class FieldBuilder {
 		}
 		
 	}
+	
 	private Field buildYellow(){
 		return abstractBuilder(4,4);
 	}
+	
 	private Field buildRed(){
 		return abstractBuilder(4,5);
 	}
+	
 	private Field buildGreen(){
 		return abstractBuilder(3,3);
 	}
+	
 	private Field abstractBuilder(int xSize, int ySize){
 		Point[][] coordinates = new Point[xSize][ySize];
 		float stepX = X_SIZE/(xSize-1);

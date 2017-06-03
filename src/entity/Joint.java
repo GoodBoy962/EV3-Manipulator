@@ -1,12 +1,16 @@
 package entity;
 
 public abstract class Joint {
-	protected float a;
-	protected float alpha;
-	protected float d;
-	protected float theta;
-	float[][] transMatrix = new float[4][4];
-	public Joint(float a, float alpha, float d, float theta){
+	
+	protected static final int MOTOR_SPEED = 50;
+	
+	protected double a;
+	protected double alpha;
+	protected double d;
+	protected double theta;
+	double[][] transMatrix = new double[4][4];
+	
+	public Joint(double a, double alpha, double d, double theta){
 		this.a = a;
 		this.alpha = alpha;
 		this.d = d;
@@ -14,9 +18,10 @@ public abstract class Joint {
 		executeTransformMatrix();
 	}
 	
-	public float[][] getTransformMatrix(){
+	public double[][] getTransformMatrix(){
 		return transMatrix;
 	}
+	
 	private void executeTransformMatrix(){
 		transMatrix[0][0] = (float) Math.cos(theta);
 		transMatrix[0][1] = (float) -Math.sin(theta);
@@ -34,8 +39,8 @@ public abstract class Joint {
 		transMatrix[3][1] = 0;
 		transMatrix[3][2] = 0;
 		transMatrix[3][3] = 1;
-		
 	}
+	
 	public abstract void stop();
 
 }
