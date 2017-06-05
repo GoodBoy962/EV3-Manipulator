@@ -6,15 +6,15 @@ import lejos.hardware.KeyListener;
 import lejos.hardware.lcd.LCD;
 
 public class RobotDisplay {
+	
 	private int colorCount;
+	
 	public RobotDisplay(){
-		LEFT = Button.LEFT;
-		RIGHT = Button.RIGHT;
-		ENTER = Button.ENTER;
 		colorCount = 0;
 		initLeft();
 		initRight();
 	}
+	
 	public void printColorMatrix(int[][] matrix){
 		for(int i = 0; i < matrix.length; i++){
 			for(int j = 0; j < matrix[i].length; j++){
@@ -22,19 +22,18 @@ public class RobotDisplay {
 			}
 		}
 	}
-	private Key LEFT;
-	private Key RIGHT;
-	private Key ENTER;
+	
 	public void bindEnter(final StartTaskBListener listener){
-		ENTER.addKeyListener(new MyClickListener(){
+		Button.ENTER.addKeyListener(new MyClickListener(){
 			@Override
 			public void keyPressed(Key k) {
 				listener.startOnEnterClick(colorCount);
 			}
 		});
 	}
+	
 	private void initLeft(){
-		LEFT.addKeyListener(
+		Button.LEFT.addKeyListener(
 			new MyClickListener(){
 				@Override
 				public void keyPressed(Key k) {
@@ -44,10 +43,10 @@ public class RobotDisplay {
 				}
 			});
 	}
+	
 	private void initRight(){
-		RIGHT.addKeyListener(
-				new MyClickListener(){
-
+		Button.RIGHT.addKeyListener(
+				new MyClickListener() {
 					@Override
 					public void keyPressed(Key k) {
 						LCD.clearDisplay();

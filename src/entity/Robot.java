@@ -12,7 +12,6 @@ public class Robot implements StartTaskBListener{
 	
 	private List<Joint> joints;
 	private ColorSensor sensor;
-	private final float LINK1 = 16;
 	private RobotEngine engine;
 	private int[][] colorMatrix;
 	private RobotDisplay display;
@@ -36,16 +35,8 @@ public class Robot implements StartTaskBListener{
 				System.out.print(colorId + " ");
 			}
 		}
-		
 		moveBack();
-		
-		for (int i = 0; i < points.length; i++){
-			for(int j = 0; j < points[0].length; j++){
-				System.out.print(colorMatrix[i][j] + " | ");
-			}
-			System.out.println();
-		}
-		
+		display.printColorMatrix(colorMatrix);
 	}
 	
 	private void moveBack() {
@@ -84,10 +75,6 @@ public class Robot implements StartTaskBListener{
 		}
 	}
 	
-	public Joint getJoint(int position){
-		return joints.get(position);
-	}
-	
 	public RectangularJoint getRotational1(){
 		return (RectangularJoint) joints.get(1);
 	}
@@ -97,8 +84,8 @@ public class Robot implements StartTaskBListener{
 	}
 	
 	public void hit(){
-		((RectangularJoint) getJoint(2)).move(180);
-		((RectangularJoint) getJoint(2)).move(-180);
+		((RectangularJoint) joints.get(2)).move(180);
+		((RectangularJoint) joints.get(2)).move(-180);
 	}
 	
 	public List<Joint> getAllJoints(){

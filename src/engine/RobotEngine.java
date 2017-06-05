@@ -25,8 +25,8 @@ public class RobotEngine {
 	public double[][] fkine(){
 		return Utils.multiply(
 				Utils.multiply(
-						robot.getJoint(0).getTransformMatrix(),
-						robot.getJoint(1).getTransformMatrix()
+						robot.getPrismatic().getTransformMatrix(),
+						robot.getRotational1().getTransformMatrix()
 				), 
 				robot.getRotational2().getTransformMatrix());
 	}
