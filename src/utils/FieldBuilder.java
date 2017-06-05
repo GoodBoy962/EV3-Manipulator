@@ -6,9 +6,11 @@ import enums.FieldType;
 
 public class FieldBuilder {
 	
-	private final float Y_SIZE = 27.4f;
-	private final float X_SIZE = 16;//21.5f;
-	public Field buildField(FieldType type){
+	private static final float Y_SIZE = 27.4f;
+	private static final float X_SIZE = 16;//21.5f;
+	public static final double Z_MAX = 18.5;
+	
+	public static Field buildField(FieldType type){
 		switch (type){
 		case RED_FIELD: return buildRed();
 		case YELLOW_FIELD: return buildYellow();
@@ -18,19 +20,23 @@ public class FieldBuilder {
 		
 	}
 	
-	private Field buildYellow(){
+	private static Field buildYellow(){
 		return abstractBuilder(4,4);
 	}
 	
-	private Field buildRed(){
+	private static Field buildRed(){
 		return abstractBuilder(4,5);
 	}
 	
-	private Field buildGreen(){
-		return abstractBuilder(3,3);
+	private static Field buildGreen(){
+		return new Field(new Point[][] {
+			{ new Point(0, 18, 0), new Point(-2, 7, 0), new Point(-1, -0.4, 0) },
+			{ new Point(0, 18, 14.5), new Point(-2, 7, 14.5), new Point(-1, -0.4, 14.5) },
+			{ new Point(0, 18, Z_MAX), new Point(-2, 7, Z_MAX), new Point(-1, -0.4, Z_MAX) },
+		});
 	}
 	
-	private Field abstractBuilder(int xSize, int ySize){
+	private static Field abstractBuilder(int xSize, int ySize){
 		Point[][] coordinates = new Point[xSize][ySize];
 		float stepX = X_SIZE/(xSize-1);
 		float stepY = Y_SIZE/(ySize-1);

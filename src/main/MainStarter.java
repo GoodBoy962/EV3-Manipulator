@@ -21,9 +21,8 @@ public class MainStarter {
 		joints.add(new RectangularJoint(0, -Math.PI/2, 0, 0, MotorPort.A));
 		joints.add(new RectangularJoint(10, 0, 0, 0, MotorPort.B));
 		ColorSensor sensor = new ColorSensor(SensorPort.S1);
-		FieldBuilder builder = new FieldBuilder();
 		Robot robot = new Robot(joints,sensor);
-		robot.startExecution(builder.buildField(FieldType.GREEN_FIELD));	
+		robot.execute(FieldBuilder.buildField(FieldType.GREEN_FIELD));	
 		robot.stop();
 	}
 }

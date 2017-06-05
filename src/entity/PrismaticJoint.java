@@ -6,12 +6,10 @@ import lejos.robotics.RegulatedMotor;
 
 public class PrismaticJoint extends Joint{
 	
-	private static final double WHEELE_RADIUS = 1.5;
-	private static final double MIN_DISTANCE = -2;
-	private static final double MAX_DISTANCE = 26;
+	private static final double WHEELE_RADIUS = 2.3;
 	
 	private RegulatedMotor motor;
-	private double currentDistance = -1;
+	private double currentDistance = 0;
 
 	public PrismaticJoint(double a, double alpha, double d, double theta, Port port) {
 		super(a, alpha, d, theta);
@@ -20,19 +18,7 @@ public class PrismaticJoint extends Joint{
 	}
 
 	public void move(double distance) {
-		
 		currentDistance += distance;
-		
-//		if(currentDistance > MAX_DISTANCE){
-//			distance =- (currentDistance - MAX_DISTANCE - distance);
-//			currentDistance = MAX_DISTANCE; 
-//		}
-//		
-//		if(currentDistance < MIN_DISTANCE){
-//			distance = -(currentDistance - MIN_DISTANCE - distance);
-//			currentDistance = MIN_DISTANCE;
-//		}
-		
 		motor.rotate((int)(360 * distance / (2 * Math.PI * WHEELE_RADIUS)));
 	}
 	

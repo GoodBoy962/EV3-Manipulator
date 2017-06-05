@@ -4,13 +4,18 @@ import lejos.hardware.Button;
 import lejos.hardware.Key;
 import lejos.utility.Delay;
 import utils.Utils;
-import entity.Joint;
 import entity.Point;
 import entity.Robot;
+
+import static main.TaskA.THETA_1;
+import static main.TaskA.L2;
+import static main.TaskA.DELAY_PERIOD;
+import static utils.FieldBuilder.*;
 
 public class RobotEngine {
 	
 	private Robot robot;
+	private double angle = 0;
 	
 	public RobotEngine(Robot robot){
 		this.robot = robot;
@@ -18,45 +23,68 @@ public class RobotEngine {
 	}
 	
 	public double[][] fkine(){
-		double [][] transformMatrix = new double[4][4];
-		for (int i = 0; i < robot.getAllJoints().size()-2; i++){
-			transformMatrix = Utils.multiply(robot.getJoint(i).getTransformMatrix(),
-					robot.getJoint(i+1).getTransformMatrix());
-		}
-		return transformMatrix;
+		return Utils.multiply(
+				Utils.multiply(
+						robot.getJoint(0).getTransformMatrix(),
+						robot.getJoint(1).getTransformMatrix()
+				), 
+				robot.getRotational2().getTransformMatrix());
 	}
 	
-	public void ikine(Point p){
-		double THETA = robot.getRotational1().getAngle();
-		double[][] transMatrix = fkine();
-		
-		double someAngle = (float) (Math.acos((float)(Math.abs(p.getX())/robot.getLink1())));
-		double d = 0;
-		double sigma = 0;
-		if(p.getY()>0){
-			someAngle *=-1;
-			sigma = Math.toDegrees(someAngle)-THETA;
-			d = (p.getY()-robot.getLink1()*Math.sin(someAngle))+robot.getPrismatic().getCurrentDistance();
+	public void ikine(Point p) {
+		double d = robot.getPrismatic().getCurrentDistance();
+		if (- d < p.getZ()) {
+			changeRow(d, p);
 		}
-		else{
-			sigma = (float) (Math.toDegrees(someAngle)-THETA);
-			d = (float) (p.getY()-robot.getLink1()*Math.sin(someAngle))-robot.getPrismatic().getCurrentDistance();
-		}
-		robot.getPrismatic().move(d);
-		Delay.msDelay(3000);
+		double theta = Math.toDegrees(robot.getRotational1().getTheta());
+		double sigma = - (theta - (180 - Math.toDegrees(Math.asin(
+						(Math.cos(Math.PI / 180 * THETA_1) * p.getY() - Math.sin(Math.PI / 180 * THETA_1) * p.getX()) / L2))));
+		angle += sigma;
 		robot.getRotational1().move(sigma);
-		Delay.msDelay(3000);
+		delay();
 	}
 	
-	private void setPANICButton(){
+	private void setPANICButton() {
 		Key escape = Button.ESCAPE;
-		escape.addKeyListener(new MyClickListener(){
-
+		escape.addKeyListener(new MyClickListener() {
 			@Override
 			public void keyPressed(Key k) {
 				robot.stop();
-			}
-			
+			}	
 		});
 	}
+	
+	private void delay() {
+		Delay.msDelay(DELAY_PERIOD);
+	}
+
+	public void moveBack() {
+		robot.getRotational1().move(-angle - 12);
+		delay();
+		angle = 0;
+		robot.getRotational2().move(-180);
+		delay();
+		robot.getPrismatic().move(-robot.getPrismatic().getCurrentDistance());
+		delay();
+	}
+	
+	private void changeRow(double d, Point p) {
+		d = - p.getZ() - d;
+		robot.getRotational1().move(- angle);
+		angle = 0;
+		delay();
+		robot.getPrismatic().move(d);
+		delay();
+		if (p.getZ() == Z_MAX) {
+			moveEE();
+		}
+	}
+	
+	private void moveEE() {
+		robot.getRotational2().move(180);
+		delay();
+		robot.getRotational1().moveEE(12);
+		delay();
+	}
+	
 }

@@ -25,43 +25,35 @@ public class Robot implements StartTaskBListener{
 		this.display = new RobotDisplay();
 	}
 	
-	public Joint getJoint(int position){
-		return joints.get(position);
-	}
-	
-	public RectangularJoint getRotational1(){
-		return (RectangularJoint) joints.get(1);
-	}
-	
-	public void move(Point point){
-		engine.ikine(point);
-	}
-	public void hit(){
-		((RectangularJoint) getJoint(2)).move(180);
-		((RectangularJoint) getJoint(2)).move(-180);
-	}
-	
-	public List<Joint> getAllJoints(){
-		return joints;
-	}
-	
-	public PrismaticJoint getPrismatic(){
-		return (PrismaticJoint) joints.get(0);
-	}
-	
-	public float getLink1(){
-		return LINK1;
-	}
-	
-	public void startExecution(Field f){
+	public void execute(Field f){
 		colorMatrix = new int[f.getPoints().length][f.getPoints()[0].length];
 		Point[][] points = f.getPoints();
 		for (int i = 0; i < points.length; i++){
-			for(int j = points[i].length-1; j >= 0; j--){
+			for(int j = 0; j < points[0].length; j++){
 				move(points[i][j]);
-				colorMatrix[i][j] = readColor();
+				int colorId = readColor();
+				colorMatrix[i][j] = colorId;
+				System.out.print(colorId + " ");
 			}
 		}
+		
+		moveBack();
+		
+		for (int i = 0; i < points.length; i++){
+			for(int j = 0; j < points[0].length; j++){
+				System.out.print(colorMatrix[i][j] + " | ");
+			}
+			System.out.println();
+		}
+		
+	}
+	
+	private void moveBack() {
+		engine.moveBack();
+	}
+
+	public void move(Point point){
+		engine.ikine(point);
 	}
 	
 	public void stop(){
@@ -79,12 +71,7 @@ public class Robot implements StartTaskBListener{
 		return sensor.getMyColorId();
 	}
 	
-	public void executeTaskB(Field f){
-		this.field = f;
-		display.bindEnter(this);
-	}
 	@Override
-	
 	public void startOnEnterClick(int colorId) {
 		Point[][] points = field.getPoints();
 		for (int i = 0; i < points.length; i++){
@@ -96,4 +83,30 @@ public class Robot implements StartTaskBListener{
 			}
 		}
 	}
+	
+	public Joint getJoint(int position){
+		return joints.get(position);
+	}
+	
+	public RectangularJoint getRotational1(){
+		return (RectangularJoint) joints.get(1);
+	}
+	
+	public RectangularJoint getRotational2(){
+		return (RectangularJoint) joints.get(2);
+	}
+	
+	public void hit(){
+		((RectangularJoint) getJoint(2)).move(180);
+		((RectangularJoint) getJoint(2)).move(-180);
+	}
+	
+	public List<Joint> getAllJoints(){
+		return joints;
+	}
+	
+	public PrismaticJoint getPrismatic(){
+		return (PrismaticJoint) joints.get(0);
+	}
+	
 }
