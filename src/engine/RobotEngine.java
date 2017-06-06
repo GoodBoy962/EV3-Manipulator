@@ -7,9 +7,6 @@ import utils.Utils;
 import entity.Point;
 import entity.Robot;
 
-import static main.TaskA.THETA_1;
-import static main.TaskA.L2;
-import static main.TaskA.DELAY_PERIOD;
 import static utils.FieldBuilder.*;
 
 public class RobotEngine {
@@ -38,9 +35,20 @@ public class RobotEngine {
 		}
 		double theta = Math.toDegrees(robot.getRotational1().getTheta());
 		double sigma = - (theta - (180 - Math.toDegrees(Math.asin(
-						(Math.cos(Math.PI / 180 * THETA_1) * p.getY() - Math.sin(Math.PI / 180 * THETA_1) * p.getX()) / L2))));
+						(Math.cos(Math.PI / 180 * Robot.THETA_1) * p.getY() - Math.sin(Math.PI / 180 * Robot.THETA_1) * p.getX()) / Robot.L2))));
 		angle += sigma;
 		robot.getRotational1().move(sigma);
+		delay();
+	}
+	
+	public void hit() {
+		int k = 1;
+		if (robot.getRotational2().getTheta() != 0) {
+			k *= -1;
+		}
+		robot.getPrismatic().move(2 * k);
+		delay();
+		robot.getPrismatic().move(-2 * k);
 		delay();
 	}
 	
@@ -55,7 +63,7 @@ public class RobotEngine {
 	}
 	
 	private void delay() {
-		Delay.msDelay(DELAY_PERIOD);
+		Delay.msDelay(Robot.DELAY_PERIOD);
 	}
 
 	public void moveBack() {

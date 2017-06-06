@@ -7,8 +7,8 @@ import enums.FieldType;
 public class FieldBuilder {
 	
 	private static final float Y_SIZE = 27.4f;
-	private static final float X_SIZE = 16;//21.5f;
-	public static final double Z_MAX = 18.5;
+	private static final float X_SIZE = 16;
+	public static final double Z_MAX = 19.5;
 	
 	public static Field buildField(FieldType type){
 		switch (type){
@@ -30,9 +30,9 @@ public class FieldBuilder {
 	
 	private static Field buildGreen(){
 		return new Field(new Point[][] {
-			{ new Point(0, 18, 0), new Point(-2, 7, 0), new Point(-1, -0.4, 0) },
-			{ new Point(0, 18, 14.5), new Point(-2, 7, 14.5), new Point(-1, -0.4, 14.5) },
-			{ new Point(0, 18, Z_MAX), new Point(-2, 7, Z_MAX), new Point(-1, -0.4, Z_MAX) },
+			{ new Point(0, 18, 0), new Point(-2, 8, 0), new Point(-1, -0.4, 0) },
+			{ new Point(0, 18, 14.5), new Point(-2, 8, 14.5), new Point(-1, -0.4, 14.5) },
+			{ new Point(0, 18, Z_MAX), new Point(-2, 8, Z_MAX), new Point(-1, -0.4, Z_MAX) },
 		});
 	}
 	

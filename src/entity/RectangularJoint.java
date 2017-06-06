@@ -3,7 +3,6 @@ package entity;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.port.Port;
 import lejos.robotics.RegulatedMotor;
-import main.TaskA;
 
 public class RectangularJoint extends Joint {
 	
@@ -17,7 +16,7 @@ public class RectangularJoint extends Joint {
 
 	public void move(double angle){
 		if (angle < 0) {
-			theta = Math.PI / 180 * TaskA.THETA_2;
+			theta = Math.PI / 180 * Robot.THETA_2;
 		} else {
  			theta += Math.toRadians(angle);
 		}
