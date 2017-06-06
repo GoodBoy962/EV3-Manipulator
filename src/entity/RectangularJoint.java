@@ -14,7 +14,8 @@ public class RectangularJoint extends Joint {
 		motor.setSpeed(MOTOR_SPEED);
 	}
 
-	public void move(double angle){
+	public void move(double angle) {
+		changed = true;
 		if (angle < 0) {
 			theta = Math.PI / 180 * Robot.THETA_2;
 		} else {
@@ -35,4 +36,5 @@ public class RectangularJoint extends Joint {
 	public void stop() {
 		motor.stop();
 	}
+
 }

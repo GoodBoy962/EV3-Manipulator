@@ -43,7 +43,7 @@ public class RobotEngine {
 	
 	public void hit() {
 		int k = 1;
-		if (robot.getRotational2().getTheta() != 0) {
+		if (robot.getRotational2().isChanged()) {
 			k *= -1;
 		}
 		robot.getPrismatic().move(2 * k);

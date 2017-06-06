@@ -42,5 +42,11 @@ public abstract class Joint {
 	}
 	
 	public abstract void stop();
+	
+	protected boolean changed = false;
+	
+	public boolean isChanged() {
+		return changed;
+	}
 
 }
