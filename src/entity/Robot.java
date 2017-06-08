@@ -54,6 +54,8 @@ public class Robot implements StartTaskBListener {
 		}
 		moveBack();
 		display.printColorMatrix(colorMatrix);
+		move(points[0][0]);
+		beep();
 	}
 	
 	public void findAndHit(Field field, int colorId) {
@@ -70,7 +72,7 @@ public class Robot implements StartTaskBListener {
 		}
 		
 		hit();
-		j = colorId % points.length - 1;
+		j = getJ(points, colorId, 0);
 		
 		for (int i = 1; i < points.length; i++) {
 			move(points[i][j]);
@@ -80,10 +82,26 @@ public class Robot implements StartTaskBListener {
 				hit();
 			}
 			colorId = foundColorId;
-			j = colorId % points.length - 1;
+			j = getJ(points, colorId, i);
 		}
 		
 		moveBack();
+		move(points[0][0]);
+		beep();
+	}
+	
+	private int getJ (Point[][] points, int colorId, int i) {
+		if (colorId == 0) {
+			colorId = 3;
+		}
+		int j = colorId;
+		if (colorId > points[0].length) {
+			j %= (i + 2);
+		}
+		if (j == 0) {
+			return j;
+		}
+		return j - 1;
 	}
 	
 	private void moveBack() {

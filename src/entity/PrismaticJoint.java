@@ -4,6 +4,8 @@ import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.port.Port;
 import lejos.robotics.RegulatedMotor;
 
+import static utils.FieldBuilder.Z_MAX;
+
 public class PrismaticJoint extends Joint{
 	
 	private static final double WHEELE_RADIUS = 2.3;
@@ -19,6 +21,9 @@ public class PrismaticJoint extends Joint{
 
 	public void move(double distance) {
 		currentDistance += distance;
+		if (currentDistance >= Z_MAX) {
+			currentDistance = Z_MAX;
+		}
 		motor.rotate((int)(360 * distance / (2 * Math.PI * WHEELE_RADIUS)));
 	}
 	

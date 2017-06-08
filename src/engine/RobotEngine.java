@@ -46,9 +46,9 @@ public class RobotEngine {
 		if (robot.getRotational2().isChanged()) {
 			k *= -1;
 		}
-		robot.getPrismatic().move(2 * k);
+		robot.getPrismatic().move(3 * k);
 		delay();
-		robot.getPrismatic().move(-2 * k);
+		robot.getPrismatic().move(-3 * k);
 		delay();
 	}
 	
