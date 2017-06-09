@@ -74,7 +74,7 @@ public class Robot implements StartTaskBListener {
 		hit();
 		j = getJ(points, colorId, 0);
 		
-		for (int i = 1; i < points.length; i++) {
+		for (int i = 1; i < points[0].length; i++) {
 			move(points[i][j]);
 			foundColorId = readColor();
 			System.out.print(foundColorId + " ");

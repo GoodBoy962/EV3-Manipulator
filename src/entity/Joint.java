@@ -2,7 +2,7 @@ package entity;
 
 public abstract class Joint {
 	
-	protected static final int MOTOR_SPEED = 50;
+	protected static final int MOTOR_SPEED = 20;
 	
 	protected double a;
 	protected double alpha;

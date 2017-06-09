@@ -19,7 +19,7 @@ public class PrismaticJoint extends Joint{
 		motor.setSpeed(MOTOR_SPEED);
 	}
 
-	public void move(double distance) {
+	public void move(double distance) {  
 		currentDistance += distance;
 		if (currentDistance >= Z_MAX) {
 			currentDistance = Z_MAX;
