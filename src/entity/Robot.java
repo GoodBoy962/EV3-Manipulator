@@ -116,7 +116,9 @@ public class Robot implements StartTaskBListener {
 		for(Joint j: joints){
 			j.stop();
 		}
-		beep();
+		
+		Sound.twoBeeps();
+		System.exit(-1);
 	}
 	
 	public void beep(){
