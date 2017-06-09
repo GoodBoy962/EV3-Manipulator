@@ -21,7 +21,7 @@ public class ColorSensor extends EV3ColorSensor{
 			case(7): return MyColor.BLACK;
 			case(13): return MyColor.BROWN;																
 		}																								
-		return MyColor.NOCOLOR;																			
+		return MyColor.NO_COLOR;																			
 	}
 	
 	public int getMyColorId(){

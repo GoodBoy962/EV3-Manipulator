@@ -1,5 +1,5 @@
 package enums;
 
 public enum MyColor {
-	RED, BLACK, GREEN, BLUE, NOCOLOR, YELLOW, WHITE, BROWN
+	NO_COLOR ,BLACK, BLUE, GREEN, YELLOW, RED, WHITE, BROWN
 }

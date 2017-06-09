@@ -9,6 +9,7 @@ import lejos.hardware.port.SensorPort;
 import engine.RobotDisplay;
 import engine.RobotEngine;
 import engine.StartTaskBListener;
+import enums.MyColor;
 
 public class Robot implements StartTaskBListener {
 	
@@ -49,16 +50,18 @@ public class Robot implements StartTaskBListener {
 				move(points[i][j]);
 				int colorId = readColor();
 				colorMatrix[i][j] = colorId;
-				System.out.print(colorId + " ");
+				System.out.print(MyColor.values()[colorId] + " ");
 			}
+			System.out.println();
 		}
 		moveBack();
-		display.printColorMatrix(colorMatrix);
 		move(points[0][0]);
 		beep();
 	}
 	
 	public void findAndHit(Field field, int colorId) {
+		
+		int startColorId = colorId;
 		
 		Point[][] points = field.getPoints();
 		
@@ -74,15 +77,41 @@ public class Robot implements StartTaskBListener {
 		hit();
 		j = getJ(points, colorId, 0);
 		
-		for (int i = 1; i < points[0].length; i++) {
+		for (int i = 1; i < 4; i++) {
 			move(points[i][j]);
 			foundColorId = readColor();
-			System.out.print(foundColorId + " ");
-			if (foundColorId == colorId) {
+			System.out.print(foundColorId);
+			if (foundColorId == startColorId) {
 				hit();
 			}
 			colorId = foundColorId;
 			j = getJ(points, colorId, i);
+		}
+		
+		if (points.length == 5) {
+			getRotational1().move(- engine.angle);
+			engine.delay();
+			engine.angle = 0;
+			engine.moveEE();
+			
+			getPrismatic().move(1.3);
+			
+			Point p = points[4][j];
+			
+			double theta = Math.toDegrees(getRotational1().getTheta());
+			double sigma = - (theta - (180 - Math.toDegrees(Math.asin(
+							(Math.cos(Math.PI / 180 * Robot.THETA_1) * p.getY() - Math.sin(Math.PI / 180 * Robot.THETA_1) * p.getX()) / Robot.L2))));
+			engine.angle += sigma;
+			getRotational1().move(sigma);
+			engine.delay();
+			
+			
+			
+			foundColorId = readColor();
+			System.out.print(foundColorId);
+			if (foundColorId == startColorId) {
+				hit();
+			}
 		}
 		
 		moveBack();
@@ -96,7 +125,7 @@ public class Robot implements StartTaskBListener {
 		}
 		int j = colorId;
 		if (colorId > points[0].length) {
-			j %= (i + 2);
+			j %= points[0].length;
 		}
 		if (j == 0) {
 			return j;

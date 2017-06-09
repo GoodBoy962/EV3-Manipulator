@@ -12,7 +12,7 @@ import static utils.FieldBuilder.*;
 public class RobotEngine {
 	
 	private Robot robot;
-	private double angle = 0;
+	public double angle = 0;
 	
 	public RobotEngine(Robot robot){
 		this.robot = robot;
@@ -62,7 +62,7 @@ public class RobotEngine {
 		});
 	}
 	
-	private void delay() {
+	public void delay() {
 		Delay.msDelay(Robot.DELAY_PERIOD);
 	}
 
@@ -88,7 +88,7 @@ public class RobotEngine {
 		}
 	}
 	
-	private void moveEE() {
+	public void moveEE() {
 		robot.getRotational2().move(180);
 		delay();
 		robot.getRotational1().moveEE(12);
