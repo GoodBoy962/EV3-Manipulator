@@ -94,7 +94,7 @@ public class Robot implements StartTaskBListener {
 			engine.angle = 0;
 			engine.moveEE();
 			
-			getPrismatic().move(1.3);
+			getPrismatic().move(1.6);
 			
 			Point p = points[4][j];
 			

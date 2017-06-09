@@ -8,7 +8,7 @@ public class TaskB {
 	
 	public static void main(String[] args) {
 		Robot robot = Robot.createRobot();
-		robot.findAndHit(FieldBuilder.buildField(FieldType.YELLOW_FIELD), 4);
+		robot.findAndHit(FieldBuilder.buildField(FieldType.RED_FIELD), 4);
 	}
 	
 }
